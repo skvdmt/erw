@@ -57,7 +57,10 @@ func (e *ErrorWrapper) LoggingError() error {
 
 // LoggingError Возвращает текст ошибки преднозначеный для записи в журнал.
 func (e *ErrorWrapper) LoggingErrorText() string {
-	return e.loggingError.Error()
+	if e.loggingError != nil {
+		return e.loggingError.Error()
+	}
+	return ""
 }
 
 // New Конструктор обертки ошибок.

@@ -30,6 +30,13 @@ func err2() error {
 	)
 }
 
+// err3 Возвращает ошибку с минимальной детализацией.
+func err3() error {
+	return erw.New(
+		erw.Status(http.StatusInternalServerError),
+	)
+}
+
 func main() {
 	fmt.Println("Примеры использования:")
 	fmt.Println("Обертка ошибки содержащая ее статус, краткое сообщение клиенту и детальное описание ошибки для записи в журнал ошибок.")
@@ -43,7 +50,9 @@ func main() {
 		fmt.Printf("to response code: %d\n", err.StatusCode())
 		fmt.Printf("to response text: %s\n", err.ResponseText())
 		fmt.Printf("to response json: %s\n", err.ResponseJSON(erw.ErrorParam("msg")))
-		fmt.Printf("to logs: %s\n", err.LoggingErrorText())
+		if err.LoggingError() != nil {
+			fmt.Printf("to logs: %s\n", err.LoggingErrorText())
+		}
 	}
 	fmt.Println()
 
@@ -55,6 +64,21 @@ func main() {
 		fmt.Printf("to response code: %d\n", err.StatusCode())
 		fmt.Printf("to response text: %s\n", err.ResponseText())
 		fmt.Printf("to response json: %s\n", err.ResponseJSON())
-		fmt.Printf("to logs: %s\n", err.LoggingErrorText())
+		if err.LoggingError() != nil {
+			fmt.Printf("to logs: %s\n", err.LoggingErrorText())
+		}
+	}
+
+	// Получаем ошибку с минимальной детализацией.
+	e = err3()
+	err = e.(*erw.ErrorWrapper)
+	fmt.Printf("Детали ошибки:\n")
+	if err != nil {
+		fmt.Printf("to response code: %d\n", err.StatusCode())
+		fmt.Printf("to response text: %s\n", err.ResponseText())
+		fmt.Printf("to response json: %s\n", err.ResponseJSON())
+		if err.LoggingError() != nil {
+			fmt.Printf("to logs: %s\n", err.LoggingErrorText())
+		}
 	}
 }
