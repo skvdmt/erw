@@ -50,8 +50,14 @@ func (e ErrorWrapper) ResponseJSON(options ...ResponseOption) []byte {
 	return r
 }
 
+// LoggingError Возвращает ошибку преднозначеную для записи в журнал.
 func (e *ErrorWrapper) LoggingError() error {
 	return e.loggingError
+}
+
+// LoggingError Возвращает текст ошибки преднозначеный для записи в журнал.
+func (e *ErrorWrapper) LoggingErrorText() string {
+	return e.loggingError.Error()
 }
 
 // New Конструктор обертки ошибок.

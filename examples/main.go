@@ -43,7 +43,7 @@ func main() {
 		fmt.Printf("to response code: %d\n", err.StatusCode())
 		fmt.Printf("to response text: %s\n", err.ResponseText())
 		fmt.Printf("to response json: %s\n", err.ResponseJSON(erw.ErrorParam("msg")))
-		fmt.Printf("to logs: %v\n", err.LoggingError())
+		fmt.Printf("to logs: %s\n", err.LoggingErrorText())
 	}
 	fmt.Println()
 
@@ -55,6 +55,6 @@ func main() {
 		fmt.Printf("to response code: %d\n", err.StatusCode())
 		fmt.Printf("to response text: %s\n", err.ResponseText())
 		fmt.Printf("to response json: %s\n", err.ResponseJSON())
-		fmt.Printf("to logs: %v\n", err.LoggingError())
+		fmt.Printf("to logs: %s\n", err.LoggingErrorText())
 	}
 }
